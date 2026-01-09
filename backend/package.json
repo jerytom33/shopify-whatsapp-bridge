@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",
-    "postinstall": "prisma generate",
-    "build": "prisma generate"
+    "postinstall": "prisma generate"
   },
   "keywords": [
     "shopify",
