@@ -44,3 +44,8 @@ export const saveConfig = async (data: any) => {
     const response = await api.post('/api/config', data);
     return response.data;
 };
+
+export const getTemplates = async (userId: string) => {
+    const response = await api.get(`/api/templates?userId=${userId}`);
+    return response.data;
+};
