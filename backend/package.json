@@ -1,0 +1,35 @@
+{
+  "name": "shopify-whatsapp-bridge",
+  "version": "1.0.0",
+  "description": "A webhook bridge that sends WhatsApp notifications via AOC Portal when Shopify orders are created",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "shopify",
+    "whatsapp",
+    "webhook",
+    "aoc-portal",
+    "notifications"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "axios": "^1.6.2",
+    "bcryptjs": "^3.0.3",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-rate-limit": "^7.1.5",
+    "jsonwebtoken": "^9.0.3",
+    "prisma": "^5.22.0",
+    "winston": "^3.11.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6"
+  }
+}

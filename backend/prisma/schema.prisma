@@ -1,0 +1,82 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(cuid())
+  email         String         @unique
+  password      String         // Hashed with bcrypt
+  name          String?
+  isActive      Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  
+  configuration Configuration?
+  webhooks      Webhook[]
+  statistics    Statistics?
+}
+
+model Configuration {
+  id                    String   @id @default(cuid())
+  userId                String   @unique
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Shopify Config (encrypted)
+  shopifyWebhookSecret  String
+  shopifyStoreName      String?
+  
+  // AOC Portal Config (encrypted)
+  aocApiKey             String
+  senderNumber          String
+  
+  // WhatsApp Template
+  templateName          String   @default("order_confirmation")
+  
+  // Settings
+  isActive              Boolean  @default(true)
+  
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+}
+
+model Webhook {
+  id              String   @id @default(cuid())
+  userId          String
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  orderId         String
+  customerName    String
+  phone           String
+  status          String   // success, failed
+  processingTime  Int
+  totalPrice      String?
+  error           String?
+  isTest          Boolean  @default(false)
+  
+  createdAt       DateTime @default(now())
+  
+  @@index([userId, createdAt])
+  @@index([status])
+}
+
+model Statistics {
+  id                  String   @id @default(cuid())
+  userId              String   @unique
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  totalWebhooks       Int      @default(0)
+  successCount        Int      @default(0)
+  failureCount        Int      @default(0)
+  retryCount          Int      @default(0)
+  totalProcessingTime BigInt   @default(0)
+  
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+}
