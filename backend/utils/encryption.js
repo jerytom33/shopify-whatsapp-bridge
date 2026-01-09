@@ -1,6 +1,6 @@
 const crypto = require('crypto');
 
-const ENCRYPTION_KEY = Buffer.from(process.env.ENCRYPTION_KEY || '12345678901234567890123456789012', 'utf8');
+const ENCRYPTION_KEY = Buffer.from(process.env.ENCRYPTION_KEY || '1234567890123456789012345678901212345678901234567890123456789012', 'hex');
 const ALGORITHM = 'aes-256-cbc';
 
 /**

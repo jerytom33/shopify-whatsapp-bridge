@@ -31,6 +31,16 @@ export const testWebhook = async (data: {
 };
 
 export const getHealth = async () => {
-    const response = await api.get('/health');
+    const response = await api.get('/api/health');
+    return response.data;
+};
+
+export const getConfig = async (userId: string) => {
+    const response = await api.get(`/api/config?userId=${userId}`);
+    return response.data;
+};
+
+export const saveConfig = async (data: any) => {
+    const response = await api.post('/api/config', data);
     return response.data;
 };
